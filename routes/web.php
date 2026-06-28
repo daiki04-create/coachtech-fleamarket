@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/mypage/profile', [ProfileController::class, 'index'])->name('mypage.profile');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('mypage.update');
+
+    Route::get('/mypage/show_list', [ProfileController::class, 'showList'])->name('mypage.show_list');
     
     Route::post('/item/{item_id}/comment', [ItemController::class, 'comment'])->name('items.comment');
     Route::post('/item/{item_id}/like', [LikeController::class, 'toggle'])->name('items.like');

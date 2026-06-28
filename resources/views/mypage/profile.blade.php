@@ -15,12 +15,17 @@
     .file-select-button:hover { background-color: #fff0f0; }
     .form-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
     .submit-btn { width: 100%; padding: 15px; background: #ff4d4d; color: #fff; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
-    /* エラーメッセージ用 */
     .error-message { color: #ff4d4d; font-size: 13px; margin-top: 5px; }
 </style>
 
 <div class="profile-container">
     <h1>プロフィール設定</h1>
+
+    <div style="text-align: center; margin-bottom: 20px;">
+    <a href="{{ route('mypage.show_list') }}" style="color: #ff4d4d; text-decoration: none; font-weight: bold;">
+        &lt; 商品一覧
+    </a>
+    </div>
 
     @if ($errors->any())
         <div style="margin-bottom: 20px; color: #ff4d4d;">

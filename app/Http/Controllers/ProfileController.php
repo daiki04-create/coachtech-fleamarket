@@ -45,4 +45,20 @@ class ProfileController extends Controller
 
         return redirect('/')->with('message', 'プロフィールを更新しました！');
     }
+
+    public function showList(Request $request)
+    {
+        $user = Auth::user();
+        $page = $request->query('page', 'sell');
+
+    if ($page === 'sell') {
+        $items = $user->items ?? collect();
+    } else {
+        $items = ($user->orders ?? collect())->map(function($order) {
+            return $order->item;
+        });
+    }
+    
+    return view('mypage.show_list', compact('user', 'items', 'page'));
+    }
 }
