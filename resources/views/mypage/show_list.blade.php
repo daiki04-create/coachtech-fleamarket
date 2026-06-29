@@ -39,8 +39,8 @@
     <div class="item-list">
         @forelse($items as $item)
             <div class="item-card">
-                @if($item->img_url)
-                    <img src="{{ asset('storage/' . $item->img_url) }}" alt="商品画像">
+                @if(!empty($item->img_url)) 
+                    <img src="{{ asset('storage/items/' . rawurlencode($item->img_url)) }}" alt="商品画像">
                 @else
                     <div style="display:flex; align-items:center; justify-content:center; height:100%; color:#ccc;">No Image</div>
                 @endif

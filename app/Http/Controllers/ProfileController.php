@@ -51,14 +51,13 @@ class ProfileController extends Controller
         $user = Auth::user();
         $page = $request->query('page', 'sell');
 
-    if ($page === 'sell') {
-        $items = $user->items ?? collect();
-    } else {
-        $items = ($user->orders ?? collect())->map(function($order) {
-            return $order->item;
-        });
-    }
-    
-    return view('mypage.show_list', compact('user', 'items', 'page'));
+        if ($page === 'sell') {
+            $items = $user->items ?? collect();
+        } else {
+            // pluck('item') で取得し、nullを除去
+            $items = $user->orders->pluck('item')->filter()->values();
+        }
+        
+        return view('mypage.show_list', compact('user', 'items', 'page'));
     }
 }
