@@ -10,7 +10,8 @@
     .form-group { margin-bottom: 20px; text-align: left; }
     .form-group label { display: block; margin-bottom: 5px; color: #666; font-size: 14px; }
     .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-    .error-list { background: #fce8e6; color: #a51d24; padding: 10px 20px; border-radius: 4px; margin-bottom: 20px; text-align: left; font-size: 14px; list-style: none; }
+    /* エラーメッセージ用のスタイル */
+    .error-message { color: #a51d24; font-size: 12px; margin-top: 5px; }
     .submit-btn { width: 100%; padding: 12px; background: #ff4d4d; color: #fff; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
     .login-link { display: block; margin-top: 20px; color: #0066cc; text-decoration: none; font-size: 14px; }
 </style>
@@ -19,34 +20,38 @@
     <div class="register-container">
         <h2>会員登録</h2>
 
-        @if ($errors->any())
-            <ul class="error-list">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
-
-        <form action="/register" method="POST">
+        <form action="/register" method="POST" novalidate>
             @csrf
             <div class="form-group">
                 <label for="name">ユーザー名</label>
-                <input type="text" id="name" name="name" value="{{ old('name') }}" required autofocus>
+                <input type="text" id="name" name="name" value="{{ old('name') }}" autofocus>
+                @error('name')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="email">メールアドレス</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required>
+                <input type="email" id="email" name="email" value="{{ old('email') }}">
+                @error('email')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="password">パスワード</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password">
+                @error('password')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="password_confirmation">パスワード確認</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" required>
+                <input type="password" id="password_confirmation" name="password_confirmation">
+                @error('password_confirmation')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
             </div>
 
             <button type="submit" class="submit-btn">登録する</button>

@@ -6,7 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
 {
-    public function authorize(): bool { return true; }
+    public function authorize(): bool
+    {
+        return true;
+    }
 
     public function rules(): array
     {
@@ -16,10 +19,12 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    // ここに書いたものがLaravelのバリデーションメッセージとして絶対的に優先されます
     public function messages(): array
     {
         return [
             'email.required' => 'メールアドレスを入力してください',
+            'email.email' => 'メールアドレスの形式が正しくありません',
             'password.required' => 'パスワードを入力してください',
         ];
     }

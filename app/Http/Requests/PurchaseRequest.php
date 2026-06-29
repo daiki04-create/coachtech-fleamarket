@@ -33,10 +33,11 @@ class PurchaseRequest extends FormRequest
     public function messages(): array
     {
     return [
-        'payment_method.required' => '決済方法を選択してください',
-        'post_code.required'      => '郵便番号を入力してください',
-        'post_code.regex'         => '郵便番号はハイフンありの8文字で入力してください',
-        'address.required'        => '住所を入力してください',
+            'payment_method.required' => '決済方法を選択してください',
+            'stripeToken.required_if' => '決済処理に失敗しました。もう一度お試しください',
+            'post_code.required'      => '郵便番号を入力してください',
+            'post_code.regex'         => '郵便番号はハイフンありの8文字で入力してください',
+            'address.required'        => '住所を入力してください',
     ];
     }
 }

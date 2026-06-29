@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Actions\Fortify\LoginRequestValidation; // 追加
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -25,6 +26,18 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Fortify::loginView(fn () => view('auth.login'));
+        
+        // ログインの認証パイプラインをカスタマイズしてバリデーションを割り込ませる
+        Fortify::authenticateThrough(function ($request) {
+            return array_filter([
+                config('fortify.limiters._2fa') ? RedirectIfTwoFactorAuthenticatable::class : null,
+            // 1. あなたのバリデーションを最優先
+            \App\Actions\Fortify\LoginRequestValidation::class, 
+            // 2. 認証処理のみを行い、Fortifyによる自動バリデーションはスキップ
+            \Laravel\Fortify\Actions\AttemptToAuthenticate::class,
+            ]);
+        });
+
         Fortify::registerView(fn () => view('auth.register'));
 
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);

@@ -22,7 +22,7 @@
 
 <div class="container">
     <div class="image-section">
-        <img src="{{ asset('storage/items/' . rawurlencode($item->img_url)) }}" alt="{{ $item->name }}">
+        <img src="{{ asset('storage/items/' . ($item->img_url ? rawurlencode($item->img_url) : 'default.png')) }}" alt="{{ $item->name }}">
     </div>
 
     <div class="info-section">

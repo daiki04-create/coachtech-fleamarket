@@ -3,21 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Item;
 
 class LikeController extends Controller
 {
-    public function toggle(Request $request, $item_id)
+    public function toggle(Item $item)
     {
-        $user = Auth::user();
+        $userId = auth()->id();
 
-        $like = Like::where('user_id', $user->id)->where('item_id', $item_id)->first();
-
-        $like ? $like->delete() : Like::create([
-            'user_id' => $user->id,
-            'item_id' => $item_id,
-        ]);
+        Like::where('user_id', $userId)
+            ->where('item_id', $item->id)
+            ->delete() ?: Like::create([
+                'user_id' => $userId,
+                'item_id' => $item->id,
+            ]);
 
         return back();
     }

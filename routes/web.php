@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ExhibitionController;
@@ -20,8 +21,8 @@ Route::post('/login-action', function (Request $request) {
         $request->session()->regenerate();
         return redirect()->route('items.index');
     }
-    return back()->withErrors(['email' => '認証情報が正しくありません。']);
-})->name('login.action');
+    return back()->withErrors(['email' => 'ログイン情報が登録されていません']);
+    })->name('login.action');
 
 Route::middleware('auth')->group(function () {
     
@@ -34,13 +35,18 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('mypage.profile'); 
     })->middleware(['signed'])->name('verification.verify');
 
+    Route::post('/email/verification-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('message', '認証メールを再送信しました！');
+    })->middleware(['throttle:6,1'])->name('verification.send');
+
     Route::get('/mypage/profile', [ProfileController::class, 'index'])->name('mypage.profile');
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('mypage.update');
 
     Route::get('/mypage/show_list', [ProfileController::class, 'showList'])->name('mypage.show_list');
     
-    Route::post('/item/{item_id}/comment', [ItemController::class, 'comment'])->name('items.comment');
-    Route::post('/item/{item_id}/like', [LikeController::class, 'toggle'])->name('items.like');
+    Route::post('/item/{item}/comment', [CommentController::class, 'store'])->name('items.comment');
+    Route::post('/item/{item}/like', [LikeController::class, 'toggle'])->name('items.like');
     
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])->name('purchase.store');

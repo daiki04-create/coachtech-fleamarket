@@ -5,10 +5,16 @@
     <h2>メール認証</h2>
     <p>登録していただいたメールアドレスに認証メールを送付しました。<br>メール認証を完了してください。</p>
     
+    @if (session('message'))
+        <div style="color: green; margin-bottom: 20px; font-weight: bold; border: 1px solid green; padding: 10px;">
+            {{ session('message') }}
+        </div>
+    @endif
+
     <div style="margin: 20px 0;">
         <a href="https://mailtrap.io/" target="_blank" class="btn-verify" 
-           style="display: inline-block; padding: 15px 40px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">
-           認証メールを確認する（Mailtrapを開く）
+            style="display: inline-block; padding: 15px 40px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">
+            認証メールを確認する（Mailtrapを開く）
         </a>
     </div>
 
