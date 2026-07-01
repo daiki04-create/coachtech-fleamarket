@@ -19,7 +19,6 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    // ここに書いたものがLaravelのバリデーションメッセージとして絶対的に優先されます
     public function messages(): array
     {
         return [

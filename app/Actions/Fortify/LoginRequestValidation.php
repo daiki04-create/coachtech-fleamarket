@@ -15,7 +15,7 @@ class LoginRequestValidation
         $validator = Validator::make(
             $request->all(),
             $loginRequest->rules(),
-            $loginRequest->messages() // ここで定義したメッセージを直接渡す
+            $loginRequest->messages() 
         );
 
         if ($validator->fails()) {

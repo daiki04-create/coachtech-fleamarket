@@ -10,7 +10,6 @@
     .form-group { margin-bottom: 20px; text-align: left; }
     .form-group label { display: block; margin-bottom: 5px; color: #666; font-size: 14px; }
     .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-    /* エラーメッセージ用のスタイル */
     .error-message { color: #a51d24; font-size: 12px; margin-top: 5px; }
     .submit-btn { width: 100%; padding: 12px; background: #ff4d4d; color: #fff; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
     .login-link { display: block; margin-top: 20px; color: #0066cc; text-decoration: none; font-size: 14px; }

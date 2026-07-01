@@ -54,7 +54,6 @@ class ProfileController extends Controller
         if ($page === 'sell') {
             $items = $user->items ?? collect();
         } else {
-            // pluck('item') で取得し、nullを除去
             $items = $user->orders->pluck('item')->filter()->values();
         }
         
