@@ -1,6 +1,6 @@
 # coachtech-fleamarket
 
-本プロジェクトは、coachtechの模擬案件に基づいたフリマアプリです。Laravel Sailを用いたDockerベースの環境構築から、Laravel Fortifyによる認証基盤の実装、Stripe決済連携までを網羅した包括的なアプリケーションです。
+本プロジェクトは、coachtechの模擬案件に基づいたフリマアプリです。Laravel 12系を採用し、Laravel Sailを用いたDocker環境で動作します。Laravel Fortifyによる認証基盤の実装、Stripe決済連携までを網羅した包括的なアプリケーションです。
 
 ## 開発環境構築手順
 
@@ -49,3 +49,10 @@ docker run --rm \
 ### データベースの初期化とシード実行
 ```bash
 ./vendor/bin/sail artisan migrate:fresh --seed
+
+## セキュリティ対応履歴 (2026/07/03)
+本プロジェクトは、`composer audit --locked` にて既知のセキュリティ脆弱性が存在しないことを確認済みです。Laravel 10から12へメジャーアップデートを実施しました。
+
+```bash
+# 依存パッケージの更新と脆弱性解消
+./vendor/bin/sail composer update --with-all-dependencies
